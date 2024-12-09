@@ -1,0 +1,55 @@
+# /etc/skel/.bashrc
+#
+# This file is sourced by all *interactive* bash shells on startup,
+# including some apparently interactive shells such as scp and rcp
+# that can't tolerate any output.  So make sure this doesn't display
+# anything or bad things will happen !
+
+
+# Test for an interactive shell.  There is no need to set anything
+# past this point for scp and rcp, and it's important to refrain from
+# outputting anything in those cases.
+if [[ $- != *i* ]] ; then
+	# Shell is non-interactive.  Be done now!
+	return
+fi
+
+
+# Put your fun stuff here.
+# prompt
+PS1='\[\033[01;31m\][\[\033[01;33m\]\u\[\033[01;32m\]@\[\033[01;34m\]\h \[\033[0;34m\]\w\[\033[01;31m\]]\[\033[01;34m\]\[\033[0m\]\$ '
+
+# Prevent Wine from adding menu entries and desktop links.
+export WINEDLLOVERRIDES="winemenubuilder.exe=d"
+
+# equery shortcuts
+alias eqf='equery f'
+alias equ='equery u'
+alias eqh='equery h'
+alias eqa='equery a'
+alias eqb='equery b'
+alias eql='equery l'
+alias eqd='equery d'
+alias eqg='equery g'
+alias eqc='equery c'
+alias eqk='equery k'
+alias eqm='equery m'
+alias eqy='equery y'
+alias eqs='equery s'
+alias eqw='equery w'
+
+# ls
+alias l='ls -lAh'
+alias la='ls -la'
+alias ll='ls -l'
+alias lg='ls -la | grep -i'
+alias lss='ls -lAhZ'
+
+# miscellaneous
+alias fml='sudo shutdown -h now'
+alias c='clear'
+alias clhist='history -c && history -w'
+alias chi='ping -c 5 8.8.8.8'
+alias e='exit'
+alias x="echo $XDG_SESSION_TYPE"
+alias sl="ls"
