@@ -71,7 +71,7 @@ create_container() {
 
 	echo -e "\e[1;32;40mCreating container $container_name. Reference: \e[1;37;40m$container_suffix\e[0m"
 	echo -e "\e[1;34;40mThis is the main shell. If this is closed, other shells referencing this container will also terminate.\e[0m"
-	docker run --tty --interactive --rm --name $container_name -v "$PWD":/workdir -w /workdir $image_name /bin/bash
+	docker run --tty --interactive --rm --name $container_name --hostname $container_name -v "$PWD":/workdir -w /workdir $image_name /bin/bash
 }
 
 attach_container() {
