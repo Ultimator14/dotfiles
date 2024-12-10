@@ -233,7 +233,7 @@ local ICON_CROSS='✖'
 
   # Color directories in green for pis (!!CHANGED!! (customized))
   case $(hostname) in
-	builder | kodi | pi[01234567] | api21 | pibox )
+	builder | kodi | pi* | api21 )
   		# set green prompt
   		POWERLEVEL9K_DIR_BACKGROUND=35
   		;;
