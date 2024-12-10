@@ -244,6 +244,22 @@ local ICON_CROSS='✖'
   		# set purple prompt
   		POWERLEVEL9K_DIR_BACKGROUND=162
   		;;
+	alpine_* )
+		# set very light blue prompt
+		POWERLEVEL9K_DIR_BACKGROUND=045
+		;;
+	arch_* )
+		# set light blue prompt
+		POWERLEVEL9K_DIR_BACKGROUND=033
+		;;
+	kali_* )
+		# set red prompt
+		POWERLEVEL9K_DIR_BACKGROUND=196
+		;;
+	ubuntu_* )
+		# set orange prompt
+		POWERLEVEL9K_DIR_BACKGROUND=202
+		;;
   esac
   
   # Color directories in red if root
