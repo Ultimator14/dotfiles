@@ -231,7 +231,7 @@ local ICON_CROSS='✖'
   # Current directory background color.
   typeset -g POWERLEVEL9K_DIR_BACKGROUND=4
 
-  # Color directories in green for pis (!!CHANGED!! (customized))
+  # Color directories by hostname for users (!!CHANGED!! (customized))
   case $(hostname) in
 	builder | kodi | pi* | api21 )
   		# set green prompt
@@ -244,6 +244,15 @@ local ICON_CROSS='✖'
   		# set purple prompt
   		POWERLEVEL9K_DIR_BACKGROUND=162
   		;;
+  esac
+
+  # Color directories in red if root
+  if [ $(id -u) -eq 0 ]; then
+      POWERLEVEL9K_DIR_BACKGROUND=1
+  fi
+
+  # Color directories for all users (override red root)
+  case $(hostname) in
 	alpine_* )
 		# set very light blue prompt
 		POWERLEVEL9K_DIR_BACKGROUND=045
@@ -260,12 +269,7 @@ local ICON_CROSS='✖'
 		# set orange prompt
 		POWERLEVEL9K_DIR_BACKGROUND=202
 		;;
-  esac
-  
-  # Color directories in red if root
-  if [ $(id -u) -eq 0 ]; then
-      POWERLEVEL9K_DIR_BACKGROUND=1
-  fi
+	esac
 
   # Default current directory foreground color.
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=254
