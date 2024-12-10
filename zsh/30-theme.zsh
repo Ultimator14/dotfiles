@@ -254,12 +254,12 @@ local ICON_CROSS='✖'
   # Color directories for all users (override red root)
   case $(hostname) in
 	alpine_* )
-		# set very light blue prompt
-		POWERLEVEL9K_DIR_BACKGROUND=045
+		# set light blue prompt
+		POWERLEVEL9K_DIR_BACKGROUND=039
 		;;
 	arch_* )
-		# set light blue prompt
-		POWERLEVEL9K_DIR_BACKGROUND=033
+		# set purple blue prompt
+		POWERLEVEL9K_DIR_BACKGROUND=026
 		;;
 	kali_* )
 		# set red prompt
