@@ -12,6 +12,7 @@ source /usr/local/dotfiles/zsh/80-gentoo-alias.zsh
 source /usr/local/dotfiles/zsh/80-misc-alias.zsh
 source /usr/local/dotfiles/zsh/80-fixup-alias.zsh
 source /usr/local/dotfiles/zsh/85-desktop-alias.zsh
+source /usr/local/dotfiles/zsh/85-docker-shell-alias.zsh
 
 # Variables export
 source /usr/local/dotfiles/zsh/90-variables.zsh
