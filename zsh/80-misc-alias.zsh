@@ -122,7 +122,7 @@ pip_update_everything() {
 	pip list --outdated --format=json | jq -r '.[] | .name + "==" + .latest_version' | cut -d = -f 1  | xargs -n1 pip install -U --user
 }
 
-color_ls() {
+color_ls_term() {
 	# Display all colors
 	for x in {0..8}
 	do
@@ -138,4 +138,8 @@ color_ls() {
 			echo
 		done
 	done
+}
+
+color_ls_prompt() {
+	for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
 }
