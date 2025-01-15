@@ -83,7 +83,7 @@ return {
     -- emerge -a dev-python/python-lsp-server
     -- emerge -a dev-python/python-lsp-ruff
     -- emerge -a dev-python/pylsp-mypy
-    -- emerge -a dev-python/pylsp-rope
+    -- emerge -a dev-python/pylsp-rope  (for rope)
     -- emerge -a dev-python/pylint-venv  (don't require pylint to be installed in each venv)
     if vim.fn.executable("pylsp") == 1 then
       lspconfig.pylsp.setup {
@@ -156,7 +156,8 @@ return {
               },
               -- completion and renaming
               rope_completion = {
-                enabled = true        -- disabled by default, 3rd party since v1.12.0
+                enabled = false        -- disabled by default, 3rd party since v1.12.0
+                                       -- causes pylsp to hang with 100% cpu, disable for now
               },
               -- type checker
               pylsp_mypy = {
