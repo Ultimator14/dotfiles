@@ -1,3 +1,6 @@
 # Use vi mode for input (like in zsh) and use red color for prompt if not in insert mode
 e scr.prompt.vi=true
 e scr.prompt.popup=true
+
+# Set default theme to gentoo
+eco gentoo
