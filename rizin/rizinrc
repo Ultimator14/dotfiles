@@ -1,6 +1,47 @@
-# Use vi mode for input (like in zsh) and use red color for prompt if not in insert mode
-e scr.prompt.vi=true
-e scr.prompt.popup=true
+#
+# General
+#
+
+# Disable initial message on start
+e cfg.fortunes=false
 
 # Set default theme to gentoo
 eco gentoo
+
+
+#
+# Assembly
+#
+
+# Use intel syntax
+e asm.syntax=intel
+
+# Display dword [rsp + varx] for stack variables instead of dword [varx]
+e asm.sub.varonly=false
+
+
+#
+# Debugging
+#
+
+# set follow-fork-mode=child
+e dbg.follow.child=true
+
+
+#
+# Screen
+#
+
+# Enable utf8
+e scr.utf8=true
+e scr.utf8.curvy=true
+
+# Use vi mode for input (like in zsh) and use red color for prompt if not in insert mode
+e scr.prompt.vi=true
+e scr.prompt.mode=true
+
+# Set default visual mode to Disassembly view 1; default is debug mode (2)
+e scr.visual.mode=1
+
+# Allow mouse wheel for scrolling
+e scr.wheel=true
