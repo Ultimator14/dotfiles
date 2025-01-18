@@ -19,6 +19,8 @@ e asm.syntax=intel
 # Display dword [rsp + varx] for stack variables instead of dword [varx]
 e asm.sub.varonly=false
 
+# Display marks at jmp instructions for quick jump to the destination
+e asm.hint.jmp=true
 
 #
 # Debugging
@@ -26,6 +28,9 @@ e asm.sub.varonly=false
 
 # set follow-fork-mode=child
 e dbg.follow.child=true
+
+# enable display of passed arguments at top of the function
+e dbg.funcarg=true
 
 
 #
