@@ -49,3 +49,9 @@ vim.keymap.set('n', '<leader>h', ':nohlsearch<cr>', { desc = 'Clear search', sil
 
 -- Use ctrl + backspace to delete last word
 vim.keymap.set('i', '<c-bs>', '<c-w>', { desc = 'Delete last word' })
+
+-- Undo cursor movement is ctrl+o
+-- Redo cursor moevement is ctrl+i
+-- However ctrl+i == Tab and we override Tab for completion purposes
+-- Therefore use another keybinding for 'redo cursor movement'
+vim.keymap.set('n', '<C-p>', '<C-i>', { desc = "Go to newer cursor position in jump list", noremap = true, silent = true })
