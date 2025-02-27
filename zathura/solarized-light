@@ -1,0 +1,60 @@
+# Basic settings
+set font "Fira Code 15"
+set recolor true
+set scroll-step 40
+set selection-clipboard clipboard
+
+# Window frame
+set window-height 3000
+set window-width 1000
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set page-padding 10
+set window-title-page true
+set guioptions vc
+
+# Completions (in command bar)
+# completion entry
+set completion-fg "#073642"
+set completion-bg "#eee8d5"
+# completion group entry
+set completion-group-fg "#b58900"
+set completion-group-bg "#fdf6e3"
+# current completion element
+set completion-highlight-fg "#fdf6e3"
+set completion-highlight-bg "#b58900"
+
+# Page
+set default-fg "#073642"
+set default-bg "#fdf6e3"
+
+# Input bar
+set inputbar-fg "#073642"
+set inputbar-bg "#eee8d5"
+
+# Status bar
+set statusbar-fg "#073642"
+set statusbar-bg "#fdf6e3"
+
+# Tab bar
+#set tabbar-fg ""
+#set tabbar-bg ""
+#set tabbar-focus-fg ""
+#set tabbar-focus-bg ""
+
+# Notifications
+set notification-fg "#dc322f"
+set notification-bg "#fdf6e3"
+set notification-warning-fg "#dc322f"
+set notification-warning-bg "#fdf6e3"
+set notification-error-fg "#dc322f"
+set notification-error-bg "#fdf6e3"
+
+# Marked text with cursor
+# use rgba to fix invisible text
+set highlight-color "rgba(181, 137, 0, 0.5)"  # yellow
+set highlight-active-color "rgba(203, 75, 22, 0.5)"  # orange
+
+# Default page
+set recolor-lightcolor "#eee8d5"
+set recolor-darkcolor "#073642"
