@@ -6,17 +6,18 @@ return {
   lazy = false,
   --@type snacks.Config
   opts = {
-    --bigfile = { enabled = true },
-    --dashboard = { enabled = true },
-    --explorer = { enabled = true },
-    --indent = { enabled = true },
-    input = { enabled = true },   -- pretty vim.ui.input
-    picker = { enabled = true },  -- pretty vim.ui.select
-    --notifier = { enabled = true },
-    --quickfile = { enabled = true },
-    --scope = { enabled = true },
-    --scroll = { enabled = true },
-    --statuscolumn = { enabled = true },
-    --words = { enabled = true },
+    input = { enabled = true },     -- pretty vim.ui.input
+    picker = { enabled = true },    -- pretty vim.ui.select
+    notifier = {                    -- pretty vim.notify
+      enabled = true,
+      timeout = 5000,
+    },
+    scroll = { enabled = true },    -- smooth scrolling with Bildauf/Bildab
   },
+  keys = {
+    -- Notifier
+    { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+    { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+
+  }
 }
