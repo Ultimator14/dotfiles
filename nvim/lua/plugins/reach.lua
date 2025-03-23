@@ -1,7 +1,7 @@
 -- Buffer/Mark/Tab/Colorscheme switcher
 return {
   'toppair/reach.nvim',
-  dependencies = { 'kyazdani42/nvim-web-devicons' },
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   cmd = "ReachOpen",
   keys = {
     { '<leader>gb', function() require("reach").buffers() end, desc = "Reach buffer", mode = "n", silent = true },
