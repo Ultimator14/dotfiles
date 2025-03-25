@@ -201,7 +201,6 @@ return {
       {"haskell-language-server-wrapper", lspconfig.hls,            {}},                                                          -- dev-haskell/haskell-language-server
       {"clangd",                          lspconfig.clangd,         {on_attach = on_attach_clangd}},                              -- sys-devel/clang
       {"texlab",                          lspconfig.texlab,         {on_attach = on_attach_texlab, settings = settings_texlab}},  -- dev-tex/texlab
-      {"rust-analyzer",                   lspconfig.rust_analyzer,  {}},                                                          -- dev-lang/rust +rust-analyzer
       {"lua-language-server",             lspconfig.lua_ls,         {}},                                                          -- installed by mason
       {"ruby-lsp",                        lspconfig.ruby_lsp,       {}}                                                           -- installed by mason
     }
@@ -214,6 +213,11 @@ return {
         language_lsp.setup(config_final)
       end
     end
+
+    --Set on_attach function for rustaceanvim
+    --Superseeds the rust-analyzer config above
+    --{"rust-analyzer", lspconfig.rust_analyzer,  {}},  -- dev-lang/rust +rust-analyzer
+    vim.g.rustaceanvim = {server = {on_attach = default_on_attach}}
 
   end
 }
