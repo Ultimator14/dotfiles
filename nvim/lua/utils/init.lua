@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 function M.file_exists(name)
    local f=io.open(name,"r")
