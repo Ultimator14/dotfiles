@@ -5,12 +5,10 @@ return {
   dependencies = {
     'rcarriga/nvim-dap-ui',               -- ui for debugging
     'theHamsta/nvim-dap-virtual-text',    -- virtual text annotations while debugging
-    'mfussenegger/nvim-dap-python',       -- preconfigured settings for python
     'nvim-neotest/nvim-nio'               -- library for async io
   },
   config = function()
     local dap = require('dap')
-    local dappy = require('dap-python')
     local dapvt = require('nvim-dap-virtual-text')
     local dapui = require('dapui')
 
@@ -41,25 +39,6 @@ return {
 
     -- Debugging
     --require('dap').set_log_level('TRACE')
-
-    -- DAP Python (requires debugpy installation via mason)
-    if vim.fn.executable(vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python') == 1 then
-      dappy.setup(vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python')
-      -- resolve global python if no virtualenv is found
-      dappy.resolve_python = function()
-        return '/usr/bin/python'
-      end
-    end
-    --[
-    --table.insert(dap.configurations.python, {
-    --  type = 'python',
-    --  request = 'launch',
-    --  name = 'Launch (no debugging)',
-    --  program = '${file}',
-    --  -- additional config options here, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
-    --})
-    --]
-
 
     -- DAP C (requires gdb 14+)
     -- Note: the executable must be compiled with the '-g' flag to enable references to make breakpoints work
