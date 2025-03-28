@@ -18,7 +18,18 @@ return {
     -- Mason dap
     require("mason-nvim-dap").setup{
       ensure_installed = { "python" },
-      automatic_installation = false
+      automatic_installation = false,
+      handlers = {
+        function(config)
+          -- Disable default setup for all available plugins. This makes configuration in dap.lua obsolete
+          -- Note: This function is implicitly defined as soon as handlers is not nil
+          -- We explicitly define it here to disable interfering with plugins that should not be touched
+          --require("mason-nvim-dap").default_setup(config)
+        end,
+        python = function(config)
+          require("mason-nvim-dap").default_setup(config)
+        end
+      },
     }
   end,
   build = ':MasonUpdate'
