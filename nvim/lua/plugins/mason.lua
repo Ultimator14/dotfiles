@@ -28,6 +28,10 @@ return {
         end,
         python = function(config)
           require("mason-nvim-dap").default_setup(config)
+        end,
+        haskell = function(config)
+          -- Requires haskell-debug-adapter installation via mason
+          require("mason-nvim-dap").default_setup(config)
         end
       },
     }
