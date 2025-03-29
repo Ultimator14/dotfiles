@@ -21,8 +21,7 @@ return {
       automatic_installation = false,
       handlers = {
         function(config)
-          -- Disable default setup for all available plugins. This makes configuration in dap.lua obsolete
-          -- Note: This function is implicitly defined as soon as handlers is not nil
+          -- This function is implicitly defined as soon as handlers is not nil
           -- We explicitly define it here to disable interfering with plugins that should not be touched
           --require("mason-nvim-dap").default_setup(config)
         end,
@@ -31,6 +30,7 @@ return {
         end,
         haskell = function(config)
           -- Requires haskell-debug-adapter installation via mason
+          -- Installation likely requires `mount -o remount,exec /tmp`
           require("mason-nvim-dap").default_setup(config)
         end
       },
