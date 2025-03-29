@@ -197,12 +197,15 @@ return {
     -- Main table containing all the lsp plugins to configure
     --]
     local lsp_configs = {
+      -- executable                       lspconfig                 additional config                                             comment
+      -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
       {"pylsp",                           lspconfig.pylsp,          {settings = settings_pylsp}},                                 -- dev-python/{python-lsp-{server,ruff},pylsp-{mypy,rope},pylint-venv}
       {"haskell-language-server-wrapper", lspconfig.hls,            {}},                                                          -- dev-haskell/haskell-language-server
       {"clangd",                          lspconfig.clangd,         {on_attach = on_attach_clangd}},                              -- sys-devel/clang
       {"texlab",                          lspconfig.texlab,         {on_attach = on_attach_texlab, settings = settings_texlab}},  -- dev-tex/texlab
       {"lua-language-server",             lspconfig.lua_ls,         {}},                                                          -- installed by mason
-      {"ruby-lsp",                        lspconfig.ruby_lsp,       {}}                                                           -- installed by mason
+      {"ruby-lsp",                        lspconfig.ruby_lsp,       {}},                                                          -- installed by mason
+      {"gopls",                           lspconfig.gopls,          {}}                                                           -- installed by mason
     }
 
     -- Configure lsp servers
