@@ -33,6 +33,8 @@ return {
         -- Requires haskell-debug-adapter installation via mason
         -- Installation likely requires `mount -o remount,exec /tmp`
         haskell = default_setup,
+        delve = default_setup,  -- go
+        node2 = default_setup   -- nodejs/javascript
       },
     }
   end,
