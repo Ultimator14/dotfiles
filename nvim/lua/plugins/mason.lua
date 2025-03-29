@@ -15,6 +15,10 @@ return {
       automatic_installation = false
     }
 
+    local default_setup = function(config)
+      require("mason-nvim-dap").default_setup(config)
+    end
+
     -- Mason dap
     require("mason-nvim-dap").setup{
       ensure_installed = { "python" },
@@ -25,14 +29,10 @@ return {
           -- We explicitly define it here to disable interfering with plugins that should not be touched
           --require("mason-nvim-dap").default_setup(config)
         end,
-        python = function(config)
-          require("mason-nvim-dap").default_setup(config)
-        end,
-        haskell = function(config)
-          -- Requires haskell-debug-adapter installation via mason
-          -- Installation likely requires `mount -o remount,exec /tmp`
-          require("mason-nvim-dap").default_setup(config)
-        end
+        python = default_setup,
+        -- Requires haskell-debug-adapter installation via mason
+        -- Installation likely requires `mount -o remount,exec /tmp`
+        haskell = default_setup,
       },
     }
   end,
