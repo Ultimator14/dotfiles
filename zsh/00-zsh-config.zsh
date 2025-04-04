@@ -71,3 +71,6 @@ zstyle :compinstall filename "${HOME}/.zshrc"
 # autoload -U promptinit
 # promptinit
 # prompt gentoo
+#
+# # Custom terminal title
+precmd() { print -Pn -- '\e]0;%n@%m: %~\a' }
