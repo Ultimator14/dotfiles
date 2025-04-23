@@ -30,6 +30,7 @@ return {
     vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open diagnostics', silent = true })
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev , { desc = 'Go to previous diagnostic', silent = true })
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next , { desc = 'Go to next diagnostic', silent = true })
+    vim.keymap.set('n', '<leader>i', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { desc = 'Toggle inlay hints', silent = true, buffer = bufnr })
 
     --[
     -- Lsp related keymaps (per buffer)
@@ -190,6 +191,14 @@ return {
       }
     }
 
+    local settings_lua_ls = {
+      Lua = {
+        hint = {
+          enable = true
+        }
+      }
+    }
+
     -- Use this pylsp config for debugging: {settings = settings_pylsp, cmd = cmd_pylsp_debug}
     --local cmd_pylsp_debug = { "pylsp", "-vvv", "--log-file", "/home/jbreig/nvim_lsp.log" }  -- Debug log , remove in production
 
@@ -203,7 +212,7 @@ return {
       {"haskell-language-server-wrapper", lspconfig.hls,            {}},                                                          -- dev-haskell/haskell-language-server
       {"clangd",                          lspconfig.clangd,         {on_attach = on_attach_clangd}},                              -- sys-devel/clang
       {"texlab",                          lspconfig.texlab,         {on_attach = on_attach_texlab, settings = settings_texlab}},  -- dev-tex/texlab
-      {"lua-language-server",             lspconfig.lua_ls,         {}},                                                          -- installed by mason
+      {"lua-language-server",             lspconfig.lua_ls,         {settings = settings_lua_ls}},                                -- installed by mason
       {"ruby-lsp",                        lspconfig.ruby_lsp,       {}},                                                          -- installed by mason
       {"gopls",                           lspconfig.gopls,          {}}                                                           -- installed by mason
     }
