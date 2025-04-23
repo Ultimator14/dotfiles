@@ -195,6 +195,9 @@ return {
       Lua = {
         hint = {
           enable = true
+        },
+        telemetry = {
+          enable = false
         }
       }
     }
