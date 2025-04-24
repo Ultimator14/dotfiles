@@ -85,147 +85,191 @@ return {
 
     --[
     -- Additional settings (per lsp)
+    -- Add a new server via its lspconfig name
+    -- add the respective executable in the server_executable_mapping table
     --]
-    local settings_pylsp = {
+    local servers = {
+      --[
+      -- Language: Python
+      -- Server: pylsp
+      -- dev-python/{python-lsp-{server,ruff},pylsp-{mypy,rope},pylint-venv}
+      --]
       pylsp = {
-        plugins = {
-          -- extensive code linting
-          pylint = {
-            enabled = true,
-            args = {"--max-line-length 120", "--init-hook='import pylint_venv; pylint_venv.inithook(quiet=True)'"}
-          },
-          -- very fast linter, replaces flake8 and others
-          ruff = {
-            enabled = true,       -- 3rd party
-            executable = "/usr/bin/ruff", -- Manually set executable to ditch ruff python binding dependencies (which are not installed by gentoo and must be manually installed via pip install)
-            lineLength = 120,
-            -- list of all rules https://beta.ruff.rs/docs/rules/
-            select = {
-              "F",                        -- pyflakes
-              "E", "W",                   -- pycodestyle (error, warning)
-              "C90",                      -- mccabe (complexty)
-              "I",                        -- isort (import sorting)
-              "N",                        -- pep8-naming
-              --"D",                      -- pydocstyle
-              "UP",                       -- pyupgrade (newer syntax)
-              "YTT",                      -- sys.version misuse
-              --"ANN",                    -- missing function annotations
-              "S",                        -- bandit (security)
-              "BLE",                      -- blind except
-              "FBT",                      -- boolean trap
-              "B",                        -- bugbear
-              "A",                        -- name shadowing
-              "COM",                      -- commas
-              "C4",                       -- unnecessary stuff
-              "DTZ",                      -- datetime
-              "DJ",                       -- django
-              "EM",                       -- errmsg
-              --"EXE",                    -- shebang
-              "ISC",                      -- implicit string concat
-              "ICN",                      -- import conventions
-              "G",                        -- logging format
-              "INP",                      -- implicit namespace package
-              "PIE",                      -- unnecessary stuff
-              --"T20",                    -- find print statements
-              "PYI",                      -- typing
-              "PT",                       -- pytest
-              "Q",                        -- quotes
-              "RSE",                      -- unnecessary raise exception stuff
-              "RET",                      -- unnecessary return stuff
-              "SLF",                      -- self access
-              "SIM",                      -- simplify
-              "TID",                      -- tidy imports
-              "TCH",                      -- type checking
-              "INT",                      -- printf
-              "ARG",                      -- unused arguments
-              --"PTH",                    -- use pathlib
-              --"ERA",                    -- commented code
-              "PD",                       -- pandas code
-              "PGH",                      -- pygrep hooks
-              --"PLC", "PLE", "PLR", "PLW"-- pylint
-              "TRY",                      -- tryceratops (exception anti pattern)
-              "NPY",                      -- numpy
-              "RUF"                       -- ruf rules
-            },
-            formatEnabled = true,
-            format = { "I" }              -- autocorrect on reformat
-          },
-          -- completion and renaming
-          rope_completion = {
-            enabled = false        -- disabled by default, 3rd party since v1.12.0
-                                   -- causes pylsp to hang with 100% cpu, disable for now
-          },
-          -- type checker
-          pylsp_mypy = {
-            enabled = true        -- 3rd party
-          },
+        --cmd = { "pylsp", "-vvv", "--log-file", "/home/jbreig/nvim_lsp.log"}, -- Debug log , remove in production
+        settings = {
+          pylsp = {
+            plugins = {
+              -- extensive code linting
+              pylint = {
+                enabled = true,
+                args = {"--max-line-length 120", "--init-hook='import pylint_venv; pylint_venv.inithook(quiet=True)'"}
+              },
+              -- very fast linter, replaces flake8 and others
+              ruff = {
+                enabled = true,       -- 3rd party
+                executable = "/usr/bin/ruff", -- Manually set executable to ditch ruff python binding dependencies (which are not installed by gentoo and must be manually installed via pip install)
+                lineLength = 120,
+                -- list of all rules https://beta.ruff.rs/docs/rules/
+                select = {
+                  "F",                        -- pyflakes
+                  "E", "W",                   -- pycodestyle (error, warning)
+                  "C90",                      -- mccabe (complexty)
+                  "I",                        -- isort (import sorting)
+                  "N",                        -- pep8-naming
+                  --"D",                      -- pydocstyle
+                  "UP",                       -- pyupgrade (newer syntax)
+                  "YTT",                      -- sys.version misuse
+                  --"ANN",                    -- missing function annotations
+                  "S",                        -- bandit (security)
+                  "BLE",                      -- blind except
+                  "FBT",                      -- boolean trap
+                  "B",                        -- bugbear
+                  "A",                        -- name shadowing
+                  "COM",                      -- commas
+                  "C4",                       -- unnecessary stuff
+                  "DTZ",                      -- datetime
+                  "DJ",                       -- django
+                  "EM",                       -- errmsg
+                  --"EXE",                    -- shebang
+                  "ISC",                      -- implicit string concat
+                  "ICN",                      -- import conventions
+                  "G",                        -- logging format
+                  "INP",                      -- implicit namespace package
+                  "PIE",                      -- unnecessary stuff
+                  --"T20",                    -- find print statements
+                  "PYI",                      -- typing
+                  "PT",                       -- pytest
+                  "Q",                        -- quotes
+                  "RSE",                      -- unnecessary raise exception stuff
+                  "RET",                      -- unnecessary return stuff
+                  "SLF",                      -- self access
+                  "SIM",                      -- simplify
+                  "TID",                      -- tidy imports
+                  "TCH",                      -- type checking
+                  "INT",                      -- printf
+                  "ARG",                      -- unused arguments
+                  --"PTH",                    -- use pathlib
+                  --"ERA",                    -- commented code
+                  "PD",                       -- pandas code
+                  "PGH",                      -- pygrep hooks
+                  --"PLC", "PLE", "PLR", "PLW"-- pylint
+                  "TRY",                      -- tryceratops (exception anti pattern)
+                  "NPY",                      -- numpy
+                  "RUF"                       -- ruf rules
+                },
+                formatEnabled = true,
+                format = { "I" }              -- autocorrect on reformat
+              },
+              -- completion and renaming
+              rope_completion = {
+                enabled = false        -- disabled by default, 3rd party since v1.12.0
+                                       -- causes pylsp to hang with 100% cpu, disable for now
+              },
+              -- type checker
+              pylsp_mypy = {
+                enabled = true        -- 3rd party
+              },
 
-          -- error checking, replaced by ruff
-          flake8 = { enabled = false },
-          -- linter for docstring style checking (mostly included in pylint)
-          pydocstyle = { enabled = false },
-          -- linter for style checking (included in flake8/ruff)
-          pycodestyle = { enabled = false },
-          -- linter for complexity (included in flake8/ruff)
-          mccabe = { enabled = false },
-          -- linter for errors (included in flake8/ruff)
-          pyflakes = { enabled = false },
-          -- code formatting (disable in favor of yapf)
-          autopep8 = { enabled = false },
-          -- code formatting (disable in favor of black)
-          yapf = { enabled = false }
-          -- code formatter (replaced by ruff-format)
-          --black = {
-          --  enabled = true,       -- 3rd party
-          --  line_length = 120
-          --},
+              -- error checking, replaced by ruff
+              flake8 = { enabled = false },
+              -- linter for docstring style checking (mostly included in pylint)
+              pydocstyle = { enabled = false },
+              -- linter for style checking (included in flake8/ruff)
+              pycodestyle = { enabled = false },
+              -- linter for complexity (included in flake8/ruff)
+              mccabe = { enabled = false },
+              -- linter for errors (included in flake8/ruff)
+              pyflakes = { enabled = false },
+              -- code formatting (disable in favor of yapf)
+              autopep8 = { enabled = false },
+              -- code formatting (disable in favor of black)
+              yapf = { enabled = false }
+              -- code formatter (replaced by ruff-format)
+              --black = {
+              --  enabled = true,       -- 3rd party
+              --  line_length = 120
+              --},
+            }
+          }
         }
-      }
-    }
-
-    local settings_texlab = {
+      },
+      --[
+      -- Language: Haskell
+      -- Server: haskell-language-server
+      -- dev-haskell/haskell-language-server
+      --]
+      hls = {},
+      --[
+      -- Language: C/C++
+      -- Server: clangd
+      -- sys-devel/clang
+      --]
+      clangd = {
+        on_attach = on_attach_clangd
+      },
+      --[
+      -- Language: LaTeX
+      -- Server: texlab
+      -- dev-tex/texlab
+      --]
       texlab = {
-        chktex = {
-          onOpenAndSave = true    -- run chktex on save
+        on_attach = on_attach_texlab,
+        settings = {
+          texlab = {
+            chktex = {
+              onOpenAndSave = true    -- run chktex on save
+            }
+          }
         }
-      }
+      },
+      --[
+      -- Language: Lua
+      -- Server: lua_ls
+      -- installed by mason
+      --]
+      lua_ls = {
+        settings = {
+          Lua = {
+            hint = {
+              enable = true
+            },
+            telemetry = {
+              enable = false
+            }
+          }
+        }
+      },
+      --[
+      -- Language: Ruby
+      -- Server: ruby_lsp
+      -- installed by mason
+      --]
+      ruby_lsp = {},
+      --[
+      -- Language: Go
+      -- Server: gopls
+      -- installed by mason
+      --]
+      gopls = {}
     }
 
-    local settings_lua_ls = {
-      Lua = {
-        hint = {
-          enable = true
-        },
-        telemetry = {
-          enable = false
-        }
-      }
-    }
-
-    -- Use this pylsp config for debugging: {settings = settings_pylsp, cmd = cmd_pylsp_debug}
-    --local cmd_pylsp_debug = { "pylsp", "-vvv", "--log-file", "/home/jbreig/nvim_lsp.log" }  -- Debug log , remove in production
-
-    --[
-    -- Main table containing all the lsp plugins to configure
-    --]
-    local lsp_configs = {
-      -- executable                       lspconfig                 additional config                                             comment
-      -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-      {"pylsp",                           lspconfig.pylsp,          {settings = settings_pylsp}},                                 -- dev-python/{python-lsp-{server,ruff},pylsp-{mypy,rope},pylint-venv}
-      {"haskell-language-server-wrapper", lspconfig.hls,            {}},                                                          -- dev-haskell/haskell-language-server
-      {"clangd",                          lspconfig.clangd,         {on_attach = on_attach_clangd}},                              -- sys-devel/clang
-      {"texlab",                          lspconfig.texlab,         {on_attach = on_attach_texlab, settings = settings_texlab}},  -- dev-tex/texlab
-      {"lua-language-server",             lspconfig.lua_ls,         {settings = settings_lua_ls}},                                -- installed by mason
-      {"ruby-lsp",                        lspconfig.ruby_lsp,       {}},                                                          -- installed by mason
-      {"gopls",                           lspconfig.gopls,          {}}                                                           -- installed by mason
+    local server_executable_mapping = {
+      pylsp = "pylsp",
+      hls = "haskell-language-server-wrapper",
+      clangd = "clangd",
+      texlab = "texlab",
+      lua_ls = "lua-language-server",
+      ruby_lsp = "ruby-lsp",
+      gopls = "gopls"
     }
 
     -- Configure lsp servers
-    for _, conf in ipairs(lsp_configs) do
-      local executable, language_lsp, config_user = conf[1], conf[2], conf[3]
+    for server_name, server_config in pairs(servers) do
+      local executable = server_executable_mapping[server_name]
+
       if vim.fn.executable(executable) == 1 then
-        local config_final = vim.tbl_deep_extend('force', {capabilities = default_capabilities, on_attach = default_on_attach}, config_user)
-        language_lsp.setup(config_final)
+        server_config = vim.tbl_deep_extend('force', {capabilities = default_capabilities, on_attach = default_on_attach}, server_config)
+        lspconfig[server_name].setup(server_config)
       end
     end
 
