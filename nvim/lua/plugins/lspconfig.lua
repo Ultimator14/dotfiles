@@ -269,7 +269,10 @@ return {
 
       if vim.fn.executable(executable) == 1 then
         server_config = vim.tbl_deep_extend('force', {capabilities = default_capabilities, on_attach = default_on_attach}, server_config)
+        -- TODO replace lspconfig.setup with vim.lsp
         lspconfig[server_name].setup(server_config)
+        --vim.lsp.config(server_name, server_config)
+        --vim.lsp.enable(server_name)
       end
     end
 
