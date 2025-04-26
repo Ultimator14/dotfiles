@@ -2,6 +2,17 @@
 # Default zsh config
 #
 
+# Configure backspace char for terminal
+# The terminal (gnome-terminal, qterminal, ...) translates keyboard input to chars
+# Usually, terminals use ^? (ASCII DEL) for backspace but some use ^H (CTRL+H)
+# We expect ^? so if a terminal uses ^h, this breaks ctrl+h keybindings e.g. for neovim
+#
+# Check current setting with `stty -a` (look for erase = ...)
+# Check actual backspace key with `ctrl+v backspace`
+#
+# Force ^? for terminal to avoid problems
+stty erase '^?'
+
 # History
 HISTFILE=${HOME}/.histfile
 HISTSIZE=10000
