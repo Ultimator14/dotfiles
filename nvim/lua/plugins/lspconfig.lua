@@ -250,7 +250,13 @@ return {
       -- Server: gopls
       -- installed by mason
       --]
-      gopls = {}
+      gopls = {},
+      --[
+      -- Language: C#
+      -- Server: csharp_ls
+      -- installed by mason
+      --]
+      csharp_ls = {}
     }
 
     -- Helper function for resolving executables
