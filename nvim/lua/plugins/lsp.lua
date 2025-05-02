@@ -276,7 +276,16 @@ return {
         -- Server: csharp_ls
         -- installed by mason
         --]
-        csharp_ls = {}
+        csharp_ls = {},
+        --[
+        -- Language: HTML, Css, Json, Javascript
+        -- Server: vscode-langservers-exracted (html, cssls, jsonls, eslint)
+        -- installed by mason
+        --]
+        cssls = {},
+        html = {},
+        jsonls = {},
+        eslint = {}
       }
 
       -- Helper function for resolving executables
