@@ -253,19 +253,17 @@ return {
       gopls = {}
     }
 
-    local server_executable_mapping = {
-      pylsp = "pylsp",
-      hls = "haskell-language-server-wrapper",
-      clangd = "clangd",
-      texlab = "texlab",
-      lua_ls = "lua-language-server",
-      ruby_lsp = "ruby-lsp",
-      gopls = "gopls"
-    }
+    -- Helper function for resolving executables
+    function check_cmd(conf)
+      if conf.cmd and type(conf.cmd) == 'table' and not vim.tbl_isempty(conf.cmd) then
+        return conf.cmd[1]
+      end
+      return nil
+    end
 
     -- Configure lsp servers
     for server_name, server_config in pairs(servers) do
-      local executable = server_executable_mapping[server_name]
+      local executable = check_cmd(server_config) or check_cmd(lspconfig[server_name].config_def.default_config)
 
       if vim.fn.executable(executable) == 1 then
         server_config = vim.tbl_deep_extend('force', {capabilities = default_capabilities, on_attach = default_on_attach}, server_config)
