@@ -1,6 +1,6 @@
 -- Mason
 return {
   'williamboman/mason.nvim',
-  opts = {},
+  config = true,
   build = ':MasonUpdate'
 }
