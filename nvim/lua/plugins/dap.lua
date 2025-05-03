@@ -1,43 +1,45 @@
+-- Prompt for expression to evaluate
+local function dapui_prompt_eval()
+  local expr = vim.fn.input('Expression: ')
+  if vim.fn.empty(expr) ~= 0 then
+    return
+  end
+  require('dapui').eval(expr, {})
+end
+
 -- DAP
 return {
   {
     'mfussenegger/nvim-dap',
-    -- ft = { "c", "cpp", "haskell", "python" },  -- dap is dependency of mason-nvim-dap which always loads (e.g. due to ensure_installed), lazy loading is useless
     dependencies = {
-      'rcarriga/nvim-dap-ui',               -- ui for debugging
-      'theHamsta/nvim-dap-virtual-text',    -- virtual text annotations while debugging
-      'nvim-neotest/nvim-nio'               -- library for async io
+      'rcarriga/nvim-dap-ui',             -- load ui when dap loads
+      'theHamsta/nvim-dap-virtual-text'   -- virtual text annotations while debugging
+    },
+    keys = {
+      -- breakpoints
+      { '<leader>sb', function() require('dap').toggle_breakpoint() end, desc = "Toggle Breakopoint", mode = "n", silent = true },
+      { '<leader>sB', function() require('dap').set_breakpoint() end, desc = "Set Breakopoint", mode = "n", silent = true },
+      { '<leader>sl', function() require('dap').set_breakpoint(nil, nil, vim.fn.input("Log poing message: ")) end , desc = "Set Logpoint", mode = "n", silent = true },
+      -- start/stop
+      { '<leader>sc', function() require('dap').continue() end, desc = "Launch/Continue debug session", mode = 'n', silent = true },
+      { '<leader>sr', function() require('dap').run_last() end, desc = "Run last debug session", mode = 'n', silent = true },
+      { '<leader>st', function() require('dap').terminate() end, desc = "Terminate debug session", mode = 'n', silent = true },
+      -- control flow
+      { '<leader>si', function() require('dap').step_into() end, desc = "Step into", mode = 'n', silent = true },
+      { '<leader>sn', function() require('dap').step_over() end, desc = "Step over", mode = 'n', silent = true },
+      { '<leader>so', function() require('dap').step_out() end, desc = "Step out", mode = 'n', silent = true },
+      -- information
+      { '<leader>sh', function() require('dap.widgets').hover() end, desc = "Hover information", mode = {'n', 'v'}, silent = true },
+      { '<leader>sp', function() require('dap.widgets').preview() end, desc = "Preview information", mode = {'n', 'v'}, silent = true },
+      { '<leader>sf', function() require('dap.widgets').centered_float(require('dap.widgets').frames) end, desc = "Show frames", mode = 'n', silent = true },
+      { '<leader>ss', function() require('dap.widgets').centered_float(require('dap.widgets').scopes) end, desc = "Show scopes", mode = 'n', silent = true }
     },
     config = function()
       local dap = require('dap')
-      local dapvt = require('nvim-dap-virtual-text')
-      local dapui = require('dapui')
-
       local daputils = require('dap.utils')
-      local dapwidgets = require('dap.ui.widgets')
-
       local utils = require('utils')
 
       -- DAP
-
-      -- breakpoints
-      vim.keymap.set('n', '<leader>sb', dap.toggle_breakpoint, { desc = "Toggle Breakopoint", silent = true})
-      vim.keymap.set('n', '<leader>sB', dap.set_breakpoint, { desc = "Set Breakopoint", silent = true})
-      vim.keymap.set('n', '<leader>sl', function() dap.set_breakpoint(nil, nil, vim.fn.input("Log poing message: ")) end , { desc = "Set Logpoint"})
-      -- start/stop
-      vim.keymap.set('n', '<leader>sc', dap.continue, { desc = "Launch/Continue debug session", silent = true})
-      vim.keymap.set('n', '<leader>sr', dap.run_last, { desc = "Run last debug session", silent = true})
-      vim.keymap.set('n', '<leader>st', dap.terminate, { desc = "Terminate debug session", silent = true})
-      -- control flow
-      vim.keymap.set('n', '<leader>si', dap.step_into, { desc = "Step into", silent = true})
-      vim.keymap.set('n', '<leader>sn', dap.step_over, { desc = "Step over", silent = true})
-      vim.keymap.set('n', '<leader>so', dap.step_out, { desc = "Step out", silent = true})
-      -- information
-      vim.keymap.set({'n', 'v'}, '<leader>sh', dapwidgets.hover, { desc = "Hover information", silent = true })
-      vim.keymap.set({'n', 'v'}, '<leader>sp', dapwidgets.preview, { desc = "Preview information", silent = true })
-      vim.keymap.set('n', '<leader>sf', function() dapwidgets.centered_float(dapwidgets.frames) end, { desc = "Show frames", silent = true })
-      vim.keymap.set('n', '<leader>ss', function() dapwidgets.centered_float(dapwidgets.scopes) end, { desc = "Show scopes", silent = true })
-
       -- Debugging
       --require('dap').set_log_level('TRACE')
 
@@ -76,51 +78,12 @@ return {
       }
       dap.configurations.cpp = dap.configurations.c
 
-      -- DAP Virtual Text
-      dapvt.setup()
-
-      -- DAP UI
-      dapui.setup()
-
-      -- Prompt for expression to evaluate
-      local function dapui_prompt_eval()
-        local expr = vim.fn.input('Expression: ')
-        if vim.fn.empty(expr) ~= 0 then
-          return
-        end
-        dapui.eval(expr, {})
-      end
-
-      vim.keymap.set({'n', 'v'}, '<leader>se', dapui.eval, { desc = "Evaluate", silent = true })
-      vim.keymap.set('n', '<leader>sE', dapui_prompt_eval, { desc = "Evaluate expression", silent = true })
-
-      -- Automatically open/close debugging windows on debug start/end
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
-
-      -- Toggle DAP UI
-      vim.keymap.set('n', '<F9>', dapui.toggle, { desc = "Toggle DAP UI", silent = true})
-    end
-  },
-  {
-    'jay-babu/mason-nvim-dap.nvim',
-    dependencies = {
-      'williamboman/mason.nvim',
-      'mfussenegger/nvim-dap'      -- must come after nvim-dap
-  },
-    config = function()
+      -- Mason DAP
       local default_setup = function(config)
         require("mason-nvim-dap").default_setup(config)
       end
 
-      -- Mason dap
+      -- Mason dap, load AFTER nvim-dap has loaded completely
       require("mason-nvim-dap").setup{
         ensure_installed = { "python" },
         automatic_installation = false,
@@ -138,6 +101,49 @@ return {
           node2 = default_setup   -- nodejs/javascript
         },
       }
+    end
+  },
+  {
+    'rcarriga/nvim-dap-ui',      -- ui for debugging
+    dependencies = {
+      'nvim-neotest/nvim-nio',   -- library for async io
+      'mfussenegger/nvim-dap'    -- cross dependency to nvim-dap to also toggle debugging on e.g. F9
+    },
+    keys = {
+      { '<F9>', function() require('dapui').toggle() end, desc = "Toggle DAP UI", mode = 'n', silent = true },
+      { '<leader>se', function() require('dapui').eval() end, desc = "Evaluate", mode = {'n', 'v'}, silent = true },
+      { '<leader>sE', dapui_prompt_eval, desc = "Evaluate expression", mode = 'n', silent = true }
+    },
+    config = function()
+      local dap = require('dap')
+      local dapui = require('dapui')
+
+      dapui.setup()
+
+      -- Automatically open/close debugging windows on debug start/end
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end
+  },
+  {
+    'theHamsta/nvim-dap-virtual-text',    -- virtual text annotations while debugging
+    lazy = true,                          -- load as dependency of nvim-dap
+    config = true
+  },
+  {
+    'jay-babu/mason-nvim-dap.nvim',
+    dependencies = { 'williamboman/mason.nvim', },
+    config = function()
+      -- This MUST load after nvim-dap
+      -- Nvim dap can be lazy loaded. Therefore this config is empty
+      -- mason-nvim-dap setup is done AFTER nvim-dap has loaded in that config function
     end
   }
 }

@@ -4,6 +4,7 @@
 return {
   'mrcjkb/rustaceanvim',
   version = '^5',  -- Recommended
-  ft = {"rust"}
+  ft = {"rust"},
+  dependencies = { 'mfussenegger/nvim-dap' }
   -- The config for this plugin is done in lspconfig.lua
 }
