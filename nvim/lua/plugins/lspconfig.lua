@@ -2,6 +2,7 @@
 return {
   {
     'williamboman/mason-lspconfig.nvim',
+    lazy = true,                                   -- load as dependency of nvim-lspconfig
     dependencies = { 'williamboman/mason.nvim' },  -- must come after mason
     opts = {
       ensure_installed = { "lua_ls" },
