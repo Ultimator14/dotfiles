@@ -104,18 +104,15 @@ return {
     end
   },
   {
-    'rcarriga/nvim-dap-ui',      -- ui for debugging
-    dependencies = {
-      'nvim-neotest/nvim-nio',   -- library for async io
-      'mfussenegger/nvim-dap'    -- cross dependency to nvim-dap to also toggle debugging on e.g. F9
-    },
+    'rcarriga/nvim-dap-ui',                      -- ui for debugging
+    dependencies = { 'nvim-neotest/nvim-nio' },  -- library for async io
     keys = {
       { '<F9>', function() require('dapui').toggle() end, desc = "Toggle DAP UI", mode = 'n', silent = true },
       { '<leader>se', function() require('dapui').eval() end, desc = "Evaluate", mode = {'n', 'v'}, silent = true },
       { '<leader>sE', dapui_prompt_eval, desc = "Evaluate expression", mode = 'n', silent = true }
     },
     config = function()
-      local dap = require('dap')
+      local dap = require('dap')                 -- implicit cross dependency to nvim-dap to also toggle debugging on e.g. F9
       local dapui = require('dapui')
 
       dapui.setup()
