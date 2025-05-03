@@ -429,7 +429,10 @@ return {
   -- Mason DAP (must come after nvim-dap)
   {
     'jay-babu/mason-nvim-dap.nvim',
-    dependencies = { 'mfussenegger/nvim-dap' },
+    dependencies = {
+      'mfussenegger/nvim-dap',
+      'williamboman/mason.nvim'
+  },
     config = function()
       local default_setup = function(config)
         require("mason-nvim-dap").default_setup(config)
