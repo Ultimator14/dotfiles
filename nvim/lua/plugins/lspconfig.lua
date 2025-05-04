@@ -4,10 +4,11 @@ return {
     'williamboman/mason-lspconfig.nvim',
     lazy = true,                                   -- load as dependency of nvim-lspconfig
     dependencies = { 'williamboman/mason.nvim' },  -- must come after mason
-    opts = {
-      ensure_installed = { "lua_ls" },
-      automatic_installation = false
-    }
+    config = function()
+      -- This MUST load before nvim-lspconfig
+      -- This is not guaranteed by just using dependencies
+      -- mason-lspconfig setup is done BEFORE nvim-lspconfig has loaded in that config function
+    end
   },
   {
     'neovim/nvim-lspconfig',                              -- (default) configs for different lsp servers
@@ -16,6 +17,12 @@ return {
       'williamboman/mason-lspconfig.nvim'                 -- nvim-lspconfig must come after mason-lspconfig
     },
     config = function()
+      -- Mason lspconfig, load BEFORE nvim-lspconfig has loads
+      require('mason-lspconfig').setup({
+        ensure_installed = { "lua_ls" },
+        automatic_installation = false
+      })
+
       --[
       -- Completion needs a language server (separate 3rd party program per language e.g. jedi-language-server)
       -- Nvim needs a language server client to talk to language server (built in feature of neovim)
