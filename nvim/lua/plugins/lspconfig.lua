@@ -12,6 +12,7 @@ return {
   },
   {
     'neovim/nvim-lspconfig',                              -- (default) configs for different lsp servers
+    event = { "BufReadPre", "BufNewFile", "BufNew" },     -- load on file open, new file and in memory editing
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",                             -- cmp must be initialized first to enable capabilities
       'williamboman/mason-lspconfig.nvim'                 -- nvim-lspconfig must come after mason-lspconfig
