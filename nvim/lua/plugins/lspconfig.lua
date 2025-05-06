@@ -113,7 +113,9 @@ return {
         --[
         -- Language: Python
         -- Server: pylsp
-        -- dev-python/{python-lsp-{server,ruff},pylsp-{mypy,rope},pylint-venv}
+        -- installed by mason
+        --  :MasonInstall python-lsp-server
+        --  :PylspInstall pylsp-mypy python-lsp-ruff pylint-venv
         --]
         pylsp = {
           --cmd = { "pylsp", "-vvv", "--log-file", "/home/jbreig/nvim_lsp.log"}, -- Debug log , remove in production
@@ -128,7 +130,6 @@ return {
                 -- very fast linter, replaces flake8 and others
                 ruff = {
                   enabled = true,       -- 3rd party
-                  executable = "/usr/bin/ruff", -- Manually set executable to ditch ruff python binding dependencies (which are not installed by gentoo and must be manually installed via pip install)
                   lineLength = 120,
                   -- list of all rules https://beta.ruff.rs/docs/rules/
                   select = {
