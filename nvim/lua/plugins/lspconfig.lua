@@ -1,9 +1,9 @@
 -- LSP
 return {
   {
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason-lspconfig.nvim',
     lazy = true,                                   -- load as dependency of nvim-lspconfig
-    dependencies = { 'williamboman/mason.nvim' },  -- must come after mason
+    dependencies = { 'mason-org/mason.nvim' },     -- must come after mason
     config = function()
       -- This MUST load before nvim-lspconfig
       -- This is not guaranteed by just using dependencies
@@ -18,7 +18,7 @@ return {
     event = { "BufReadPre", "BufNewFile", "BufNew" },     -- load on file open, new file and in memory editing
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",                             -- cmp must be initialized first to enable capabilities
-      'williamboman/mason-lspconfig.nvim'                 -- nvim-lspconfig must come after mason-lspconfig
+      'mason-org/mason-lspconfig.nvim'                    -- nvim-lspconfig must come after mason-lspconfig
     },
     config = function()
       -- Mason lspconfig, load BEFORE nvim-lspconfig has loads

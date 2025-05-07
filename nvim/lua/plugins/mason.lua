@@ -1,6 +1,6 @@
 -- Mason
 return {
-  'williamboman/mason.nvim',
+  'mason-org/mason.nvim',
   config = true,
   build = ':MasonUpdate',
   -- pin for now (see https://github.com/mason-org/mason-lspconfig.nvim/issues/545)
