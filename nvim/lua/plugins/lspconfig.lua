@@ -8,7 +8,10 @@ return {
       -- This MUST load before nvim-lspconfig
       -- This is not guaranteed by just using dependencies
       -- mason-lspconfig setup is done BEFORE nvim-lspconfig has loaded in that config function
-    end
+    end,
+  -- pin for now (see https://github.com/mason-org/mason-lspconfig.nvim/issues/545)
+  -- remove this along with the lspconfig transition to vim.lsp.enable()
+  version = "1.32.0"
   },
   {
     'neovim/nvim-lspconfig',                              -- (default) configs for different lsp servers
