@@ -39,6 +39,21 @@ then
 	alias dgl='GIT_EXTERNAL_DIFF=difft git log -p --ext-diff'
 fi
 
+# jq stdin wrapper (use in pipe)
+if [[ ! -z $commands[jq] ]]
+then
+json_or_print () {
+	while IFS= read -r line
+	do
+		echo "$line" | jq . 2> /dev/null;
+		jqstatus=$?;
+		if [ $jqstatus -ne 0 ]
+		then
+			echo "$line";
+		fi
+	done
+}
+fi
 
 # miscellaneous
 alias fml='sudo poweroff'
