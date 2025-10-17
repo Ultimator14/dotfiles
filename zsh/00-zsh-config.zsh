@@ -29,9 +29,13 @@ bindkey '^[[3~' delete-char
 # Pfeiltasten
 bindkey '^[[D' backward-char
 bindkey '^[[C' forward-char
-
 bindkey '^[[A' up-line-or-history
 bindkey '^[[B' down-line-or-history
+# Alt+Pfeiltasten
+bindkey '^[[1;3D' backward-word
+bindkey '^[[1;3C' forward-word
+# Alt+Backspace
+bindkey '^[^?' backward-kill-word
 
 # Disable F1-F12
 bindkey -s '\eOP' ''
