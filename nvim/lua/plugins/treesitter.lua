@@ -3,6 +3,7 @@ return {
   'nvim-treesitter/nvim-treesitter',
   event = { "BufReadPre", "BufNewFile" },
   build = ':TSUpdateSync',
+  lazy = false,  -- :TSUpdate should be available at all times
   dependencies = {
     'windwp/nvim-ts-autotag', -- auto close html tags
   },
