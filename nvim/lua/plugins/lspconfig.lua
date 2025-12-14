@@ -8,10 +8,7 @@ return {
       -- This MUST load before nvim-lspconfig
       -- This is not guaranteed by just using dependencies
       -- mason-lspconfig setup is done BEFORE nvim-lspconfig has loaded in that config function
-    end,
-  -- pin for now (see https://github.com/mason-org/mason-lspconfig.nvim/issues/545)
-  -- remove this along with the lspconfig transition to vim.lsp.enable()
-  version = "1.32.0"
+    end
   },
   {
     'neovim/nvim-lspconfig',                              -- (default) configs for different lsp servers
@@ -23,6 +20,7 @@ return {
     config = function()
       -- Mason lspconfig, load BEFORE nvim-lspconfig has loads
       require('mason-lspconfig').setup({
+        automatic_enable = true,
         ensure_installed = { "lua_ls" },
         automatic_installation = false
       })
@@ -45,7 +43,6 @@ return {
       --]
 
       local default_capabilities = require('cmp_nvim_lsp').default_capabilities()
-      local lspconfig = require('lspconfig')
       local utils = require('utils')
 
       --[
@@ -106,211 +103,55 @@ return {
 
         vim.keymap.set('n', '<localleader>b', build_file, { desc = 'Build c/cpp file', silent = false })
       end
-
-      --[
-      -- Additional settings (per lsp)
-      -- Add a new server via its lspconfig name
-      -- add the respective executable in the server_executable_mapping table
-      --]
-      local servers = {
-        --[
-        -- Language: Python
-        -- Server: pylsp
-        -- installed by mason
-        --  :MasonInstall python-lsp-server
-        --  :PylspInstall pylsp-mypy python-lsp-ruff pylint-venv
-        --]
-        pylsp = {
-          --cmd = { "pylsp", "-vvv", "--log-file", "/home/jbreig/nvim_lsp.log"}, -- Debug log , remove in production
-          settings = {
-            pylsp = {
-              plugins = {
-                -- extensive code linting
-                pylint = {
-                  enabled = true,
-                  args = {"--max-line-length 120", "--init-hook='import pylint_venv; pylint_venv.inithook(quiet=True)'"}
-                },
-                -- very fast linter, replaces flake8 and others
-                ruff = {
-                  enabled = true,       -- 3rd party
-                  lineLength = 120,
-                  -- list of all rules https://beta.ruff.rs/docs/rules/
-                  select = {
-                    "F",                        -- pyflakes
-                    "E", "W",                   -- pycodestyle (error, warning)
-                    "C90",                      -- mccabe (complexty)
-                    "I",                        -- isort (import sorting)
-                    "N",                        -- pep8-naming
-                    --"D",                      -- pydocstyle
-                    "UP",                       -- pyupgrade (newer syntax)
-                    "YTT",                      -- sys.version misuse
-                    --"ANN",                    -- missing function annotations
-                    "S",                        -- bandit (security)
-                    "BLE",                      -- blind except
-                    "FBT",                      -- boolean trap
-                    "B",                        -- bugbear
-                    "A",                        -- name shadowing
-                    "COM",                      -- commas
-                    "C4",                       -- unnecessary stuff
-                    "DTZ",                      -- datetime
-                    "DJ",                       -- django
-                    "EM",                       -- errmsg
-                    --"EXE",                    -- shebang
-                    "ISC",                      -- implicit string concat
-                    "ICN",                      -- import conventions
-                    "G",                        -- logging format
-                    "INP",                      -- implicit namespace package
-                    "PIE",                      -- unnecessary stuff
-                    --"T20",                    -- find print statements
-                    "PYI",                      -- typing
-                    "PT",                       -- pytest
-                    "Q",                        -- quotes
-                    "RSE",                      -- unnecessary raise exception stuff
-                    "RET",                      -- unnecessary return stuff
-                    "SLF",                      -- self access
-                    "SIM",                      -- simplify
-                    "TID",                      -- tidy imports
-                    "TCH",                      -- type checking
-                    "INT",                      -- printf
-                    "ARG",                      -- unused arguments
-                    --"PTH",                    -- use pathlib
-                    --"ERA",                    -- commented code
-                    "PD",                       -- pandas code
-                    "PGH",                      -- pygrep hooks
-                    --"PLC", "PLE", "PLR", "PLW"-- pylint
-                    "TRY",                      -- tryceratops (exception anti pattern)
-                    "NPY",                      -- numpy
-                    "RUF"                       -- ruf rules
-                  },
-                  formatEnabled = true,
-                  format = { "I" }              -- autocorrect on reformat
-                },
-                -- completion and renaming
-                rope_completion = {
-                  enabled = false        -- disabled by default, 3rd party since v1.12.0
-                                         -- causes pylsp to hang with 100% cpu, disable for now
-                },
-                -- type checker
-                pylsp_mypy = {
-                  enabled = true        -- 3rd party
-                },
-
-                -- error checking, replaced by ruff
-                flake8 = { enabled = false },
-                -- linter for docstring style checking (mostly included in pylint)
-                pydocstyle = { enabled = false },
-                -- linter for style checking (included in flake8/ruff)
-                pycodestyle = { enabled = false },
-                -- linter for complexity (included in flake8/ruff)
-                mccabe = { enabled = false },
-                -- linter for errors (included in flake8/ruff)
-                pyflakes = { enabled = false },
-                -- code formatting (disable in favor of yapf)
-                autopep8 = { enabled = false },
-                -- code formatting (disable in favor of black)
-                yapf = { enabled = false }
-                -- code formatter (replaced by ruff-format)
-                --black = {
-                --  enabled = true,       -- 3rd party
-                --  line_length = 120
-                --},
-              }
-            }
-          }
-        },
-        --[
-        -- Language: Haskell
-        -- Server: haskell-language-server
-        -- dev-haskell/haskell-language-server
-        --]
-        hls = {},
-        --[
-        -- Language: C/C++
-        -- Server: clangd
-        -- sys-devel/clang
-        --]
-        clangd = {
-          on_attach = on_attach_clangd
-        },
-        --[
-        -- Language: LaTeX
-        -- Server: texlab
-        -- dev-tex/texlab
-        --]
-        texlab = {
-          on_attach = on_attach_texlab,
-          settings = {
-            texlab = {
-              chktex = {
-                onOpenAndSave = true    -- run chktex on save
-              }
-            }
-          }
-        },
-        --[
-        -- Language: Lua
-        -- Server: lua_ls
-        -- installed by mason
-        --]
-        lua_ls = {
-          settings = {
-            Lua = {
-              hint = {
-                enable = true
-              },
-              telemetry = {
-                enable = false
-              }
-            }
-          }
-        },
-        --[
-        -- Language: Ruby
-        -- Server: ruby_lsp
-        -- installed by mason
-        --]
-        ruby_lsp = {},
-        --[
-        -- Language: Go
-        -- Server: gopls
-        -- installed by mason
-        --]
-        gopls = {},
-        --[
-        -- Language: C#
-        -- Server: csharp_ls
-        -- installed by mason
-        --]
-        csharp_ls = {},
-        --[
-        -- Language: HTML, Css, Json, Javascript
-        -- Server: vscode-langservers-exracted (html, cssls, jsonls, eslint)
-        -- installed by mason
-        --]
-        cssls = {},
-        html = {},
-        jsonls = {},
-        eslint = {}
-      }
-
       -- Helper function for resolving executables
-      function check_cmd(conf)
+      function check_cmd(server_name)
+        local conf = vim.lsp.config[server_name]
+
         if conf.cmd and type(conf.cmd) == 'table' and not vim.tbl_isempty(conf.cmd) then
           return conf.cmd[1]
+        elseif server_name == "csharp_ls" then
+          -- csharp has a function as cmd to read sln files for the project
+          -- handle separately here
+          return "csharp-ls"
         end
+
         return nil
       end
 
-      -- Configure lsp servers
-      for server_name, server_config in pairs(servers) do
-        local executable = check_cmd(server_config) or check_cmd(lspconfig[server_name].config_def.default_config)
+      -- Default config for lsp servers
+      vim.lsp.config("*", {
+        capabilities = default_capabilities,
+        on_attach = default_on_attach
+      })
 
+      -- Special handling for some servers
+      vim.lsp.config("clangd", {
+        on_attach = on_attach_clangd
+      })
+      vim.lsp.config("texlab", {
+        on_attch = on_attach_texlab
+      })
+
+      -- LSP servers we support
+      local servers = {
+        "pylsp",
+        "hls",
+        "clangd",
+        "texlab",
+        "ruby_lsp",
+        "gopls",
+        "csharp_ls",
+        "cssls",
+        "html",
+        "jsonls",
+        "eslint"
+      }
+
+      -- Enable configured and installed lsp servers
+      for _, server_name in ipairs(servers) do
+        local executable = check_cmd(server_name)
         if vim.fn.executable(executable) == 1 then
-          server_config = vim.tbl_deep_extend('force', {capabilities = default_capabilities, on_attach = default_on_attach}, server_config)
-          -- TODO replace lspconfig.setup with vim.lsp
-          lspconfig[server_name].setup(server_config)
-          --vim.lsp.config(server_name, server_config)
-          --vim.lsp.enable(server_name)
+          vim.lsp.enable(server_name)
         end
       end
 
