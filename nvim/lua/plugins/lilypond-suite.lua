@@ -85,7 +85,7 @@ return {
       winhighlight = "Normal:Normal,FloatBorder:Normal",
       midi_synth = "fluidsynth",
       fluidsynth_flags = {
-        "/usr/share/sounds/sf2/FluidR3_GM.sf2", "-g", "2"
+        "-g", "2", "-a", "pipewire", "/usr/share/sounds/sf2/FluidR3_GM.sf2"
       },
       timidity_flags = nil,
       audio_format = "mp3",
