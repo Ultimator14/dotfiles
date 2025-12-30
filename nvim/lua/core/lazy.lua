@@ -24,6 +24,10 @@ local opts = {
       -- reset = false,         -- deactivate rtp override; not required; add vimfiles path instead; see init.lua
       paths = { "/usr/share/vim/vimfiles" }
     }
+  },
+  rocks = {
+      -- disable luarocks/hererocks
+      enabled = false
   }
 }
 require('lazy').setup("plugins", opts)
