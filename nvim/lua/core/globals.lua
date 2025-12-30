@@ -43,8 +43,8 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
--- Config for lsp_lines plugin
+-- Config for lspconfig info below lines (replaces lsp_lines plugin)
 vim.diagnostic.config({
-  virtual_text = false,                         -- Disable virtual_text since it's redundant due to lsp_lines.
-  virtual_lines = { only_current_line = true }  -- Only use lsp_lines for the current line
+  virtual_text = false,                    -- Disable virtual_text since it's redundant due to lsp_lines.
+  virtual_lines = { current_line = true }  -- Only use lsp_lines for the current line
 })
