@@ -240,7 +240,7 @@ local ICON_CROSS='✖'
   	rechna | lehnowo | noutbuk | uesbe )
   		# do nothing
   		;;
-	ext.pygos.space )
+	ext* )
   		# set purple prompt
   		POWERLEVEL9K_DIR_BACKGROUND=162
   		;;
