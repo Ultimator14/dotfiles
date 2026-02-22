@@ -113,6 +113,10 @@ return {
           -- csharp has a function as cmd to read sln files for the project
           -- handle separately here
           return "csharp-ls"
+        elseif server_name == "ruby_lsp" then
+          -- ruby has a function as cmd
+          -- handle separately here
+          return "ruby-lsp"
         end
 
         return nil
