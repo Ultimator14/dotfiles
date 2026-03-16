@@ -55,3 +55,10 @@ vim.keymap.set('i', '<c-bs>', '<c-w>', { desc = 'Delete last word' })
 -- However ctrl+i == Tab and we override Tab for completion purposes
 -- Therefore use another keybinding for 'redo cursor movement'
 vim.keymap.set('n', '<C-p>', '<C-i>', { desc = "Go to newer cursor position in jump list", noremap = true, silent = true })
+
+-- Search for the word under the cursor but do not move the cursor in either direction
+-- Same as * or # without moving the cursor
+vim.keymap.set("n", "<leader>#", function()
+  vim.fn.setreg("/", "\\<" .. vim.fn.expand("<cword>") .. "\\>")
+  vim.opt.hlsearch = true
+end, { desc = "Highlight word under cursor", noremap = true, silent = true })
