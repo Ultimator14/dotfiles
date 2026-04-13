@@ -37,6 +37,7 @@ local options = {
   scrolloff = 2,                    -- always keep n lines above and below cursor when scrolling
   --conceallevel = 2,                 -- hide concealed text, enable replacement of multiple chars, disable, very unhandy for markdown
   --undofile = true,                  -- use a file to save undo history, disable accidental undo of previous changes
+  modeline = false,                 -- disable interpretation of vim commands in files, prevents files from changing editor config, removes a rce vector
 }
 
 for k, v in pairs(options) do
