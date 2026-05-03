@@ -1,0 +1,15 @@
+//Firefox policies (valid globally if placed here)
+/etc/firefox/policies/policies.json
+
+//userChrome.css (valid per profile if placed here)
+~/.mozilla/firefox/<profile>/chrome/userChrome.css
+
+
+//1. Link policies to global policy dir
+# mkdir -p /etc/firefox/policies
+# ln -s /usr/local/dotfiles/firefox/policies/policies.json /etc/firefox/policies/policies.json
+
+//2. Link userChrome.css
+$ cd <profile dir>
+$ mkdir -p ./chrome
+$ ln -s /usr/local/dotfiles/firefox/chrome/userChrome.css chrome/userChrome.css

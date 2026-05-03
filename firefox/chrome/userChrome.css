@@ -1,0 +1,92 @@
+/*
+ * Context Menu
+ *
+ * https://searchfox.org/firefox-release/source/browser/base/content/browser-context.inc
+ * https://github.com/stonecrusher/simpleMenuWizard/tree/master
+ */
+
+/* Bookmark */
+#context-bookmarklink,
+#context-bookmarkpage,
+
+/* Email ... */
+#context-sendvideo,
+#context-sendimage,
+
+/* Send Link to Device */
+#context-sendlinktodevice,
+#context-sep-sendlinktodevice,
+#context-sendpagetodevice,
+#context-sep-sendpagetodevice,
+#context_sendTabToDevice,
+#context_sendTabToDevice_separator,
+
+/* ... Selection to ... */
+#context-translate-selection,
+#context-print-selection,
+
+/* Copy Clean Link */
+#context-stripOnShareLink,
+#context-copy-clean-link-to-highlight,
+
+/* Take Screenshot */
+#context-take-screenshot,
+#context-sep-screenshots,
+
+/* Google search */
+#context-searchselect,
+
+/* Set Image as Desktop Background… */
+#context-setDesktopBackground,
+#context-sep-setbackground,
+
+/* Inspect */
+/*#context-inspect,*/
+#context-inspect-a11y,
+
+/* Spelling */
+#spell-separator,
+#spell-check-enabled,
+#context-sep-bidi,
+
+/* Additional separators */
+#context-sep-copylink,
+#context-sep-selectall,
+#context-sep-highlights,
+/*
+#context-sep-viewsource-commands,
+#context-sep-sharing,
+#context-sep-open,
+*/
+
+/* Pocket */
+#context-savelink,
+#context-pocket
+{
+ display: none !important;
+}
+
+/*
+ * Tabs Menu
+ *
+ * https://github.com/stonecrusher/simpleMenuWizard/blob/master/simpleMenuWizard/tab-context.css
+ */
+/*
+#tabContextMenu #context_ungroupTab + menuseparator,
+*/
+#tabContextMenu #context_duplicateTabs + menuseparator,
+#tabContextMenu #context_bookmarkSelectedTabs,
+#tabContextMenu #context_bookmarkTab,
+#tabContextMenu #context_moveTabOptions,
+#tabContextMenu #context_moveToStart,
+#tabContextMenu #context_moveToEnd,
+#tabContextMenu #context_openTabInWindow,
+#tabContextMenu #context_selectAllTabs,
+#tabContextMenu #context_selectAllTabs + menuseparator,
+#tabContextMenu #context_closeTabOptions,
+#tabContextMenu #context_closeTabsToTheStart,
+#tabContextMenu #context_closeTabsToTheEnd,
+#tabContextMenu #context_closeOtherTabs
+{
+ display: none !important;
+}

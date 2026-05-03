@@ -1,0 +1,64 @@
+{
+  "policies": {
+    "AIControls": {
+        "Default": { "Value": "blocked", "Locked": true },
+        "Translations": { "Value": "available" }
+    },
+    "AutofillAddressEnabled": false,
+    "AutofillCreditCardEnabled": false,
+    "DisableAppUpdate": true,
+    "DisableFirefoxStudies": true,
+    "DisablePocket": true,
+    "DisableTelemetry": true,
+    "DontCheckDefaultBrowser": true,
+    "IPProtectionAvailable": false,
+    "LegacySameSiteCookieBehaviorEnabled": false,
+    "NetworkPrediction": false,
+    "SSLVersionMin": "tls1.2",
+    "FirefoxHome": {
+      "TopSites": false,
+      "SponsoredTopSites": false,
+      "Highlights": false,
+      "Pocket": false,
+      "Stories": false,
+      "SponsoredPocket": false,
+      "SponsoredStories": false,
+      "Snippets": false,
+      "Locked": true
+    },
+    "FirefoxSuggest": {
+        "WebSuggestions": false,
+        "SponsoredSuggestions": false,
+        "ImproveSuggest": false,
+        "Locked": true
+    },
+    "SearchEngines": {
+      "Remove": [
+        "Perplexity"
+      ]
+    },
+    "Preferences": {
+      "browser.discovery.enabled": { "Value": false, "Status": "locked" },
+      "browser.urlbar.suggest.quickactions": { "Value": false, "Status": "locked" },
+      "browser.urlbar.suggest.sports": { "Value": false, "Status": "locked" },
+      "browser.urlbar.suggest.trending": { "Value": false, "Status": "locked" },
+      "browser.urlbar.suggest.weather": { "Value": false, "Status": "locked" },
+      "browser.urlbar.suggest.wikipedia": { "Value": false, "Status": "locked" },
+      "browser.urlbar.suggest.yelp": { "Value": false, "Status": "locked" },
+      "browser.urlbar.suggest.yelpRealtime": { "Value": false, "Status": "locked" },
+	  "browser.urlbar.trending.featureGate": { "Value": false, "Status": "locked" },
+	  "browser.tabs.groups.enabled": { "Value": false, "Status": "locked" },
+	  "browser.tabs.groups.smart.enabled": { "Value": false, "Status": "locked" },
+	  "browser.tabs.splitView.enabled": { "Value": false, "Status": "locked" },
+      "browser.newtabpage.activity-stream.showSponsoredCheckboxes": { "Value": false, "Status": "locked" },
+      "browser.newtabpage.activity-stream.showWeather": { "Value": false, "Status": "locked" },
+	  "browser.search.visualSearch.featureGate": { "Value": false, "Status": "locked" },
+      "dom.push.enabled": { "Value": false, "Status": "locked" },
+      "dom.push.connection.enabled": { "Value": false, "Status": "locked" },
+	  "dom.text-recognition.enabled": { "Value": false, "Status": "locked" },
+      "dom.webnotifications.enabled": { "Value": false, "Status": "locked" },
+	  "browser.toolbars.bookmarks.visibility": { "Value": "always" },
+	  "toolkit.legacyUserProfileCustomizations.stylesheets": { "Value": true }
+    }
+  }
+}
