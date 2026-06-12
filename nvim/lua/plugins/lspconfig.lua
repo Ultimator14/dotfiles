@@ -109,14 +109,6 @@ return {
 
         if conf.cmd and type(conf.cmd) == 'table' and not vim.tbl_isempty(conf.cmd) then
           return conf.cmd[1]
-        elseif server_name == "csharp_ls" then
-          -- csharp has a function as cmd to read sln files for the project
-          -- handle separately here
-          return "csharp-ls"
-        elseif server_name == "ruby_lsp" then
-          -- ruby has a function as cmd
-          -- handle separately here
-          return "ruby-lsp"
         end
 
         return nil
@@ -137,23 +129,32 @@ return {
       })
 
       -- LSP servers we support
+      -- {server_name, executable}
       local servers = {
-        "pylsp",
-        "hls",
-        "clangd",
-        "texlab",
-        "ruby_lsp",
-        "gopls",
-        "csharp_ls",
-        "cssls",
-        "html",
-        "jsonls",
-        "eslint"
+        {"pylsp"},
+        {"hls", "haskell-language-server-wrapper"},
+        {"clangd"},
+        {"texlab"},
+        {"ruby_lsp", "ruby-lsp"},                 -- ruby has a function as cmd
+        {"gopls"},
+        {"csharp_ls", "csharp-ls"},               -- csharp has a function as cmd to read sln files for the project
+        {"cssls", "vscode-css-language-server"},  -- configs set in default_config
+        {"html", "vscode-html-language-server"},
+        {"jsonls", "vscode-json-language-server"},
+        {"eslint", "vscode-eslint-language-server"}
       }
 
       -- Enable configured and installed lsp servers
-      for _, server_name in ipairs(servers) do
-        local executable = check_cmd(server_name)
+      for _, server_entry in ipairs(servers) do
+        local server_name = server_entry[1]
+        local executable = server_entry[2]
+
+        -- if executable not set, try to retrieve from lspconfig
+        if executable == nil then executable = check_cmd(server_name) end
+
+        -- if no executable found, fall back to server name
+        if executable == nil then executable = server_name end
+
         if vim.fn.executable(executable) == 1 then
           vim.lsp.enable(server_name)
         end
