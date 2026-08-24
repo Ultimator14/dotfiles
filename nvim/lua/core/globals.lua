@@ -49,3 +49,8 @@ vim.diagnostic.config({
   virtual_text = false,                    -- Disable virtual_text since it's redundant due to lsp_lines.
   virtual_lines = { current_line = true }  -- Only use lsp_lines for the current line
 })
+
+-- Disable clipboard termfeature to prevent +q4D73 from appearing at cursor position when opening files
+local termfeatures = vim.g.termfeatures or {}
+termfeatures.osc52 = false
+vim.g.termfeatures = termfeatures
